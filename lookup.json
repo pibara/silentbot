@@ -1,0 +1,58 @@
+[
+    [
+        {},
+        {
+            "icon": "https://images.hive.blog/DQmSf5A4wzeq3rhNLKw1U5D7raqHG2xD884zaD8va4zNcFE/1.png",
+            "link": "/silentbot/@silentbot/1-star",
+            "percentage": 100
+        },
+        {
+            "icon": "https://images.hive.blog/DQmdUDdwzVtSk9xFgy1bv85FUkUGR1rEWitLkQG66WTDr4U/2.png",
+            "link": "/silentbot/@silentbot/2-star",
+            "percentage": 1000
+        },
+        {
+            "icon": "https://images.hive.blog/DQmZxnBjx5WBiU1cDfAmi9BEdt5MMn6hcrJNEo5EE3cJQw3/3.png",
+            "link": "/silentbot/@silentbot/3-star",
+            "percentage": 2500
+        },
+        {
+            "icon": "https://images.hive.blog/DQmZeUv9EYzvtWDQVAexsZbG2kBJ9GyHQoYUhiCQ3BGg1qB/4.png",
+            "link": "/silentbot/@silentbot/4-star",
+            "percentage": 5000
+        },
+        {
+            "icon": "https://images.hive.blog/DQmcZqw87c8uXne83AJ4cat3MDW2c51fAecGHeRSWYqaC6j/5.png",
+            "link": "/silentbot/@silentbot/5-star",
+            "percentage": 9000
+        }
+    ],
+    [
+        {},
+        {
+            "icon": "https://images.hive.blog/DQmUrBfwdk94AMySxYNVCDgeLoL5SHUiKPiXt7541BbVnFt/1.png",
+            "link": "/silentbot/@silentbot/1-star-pu",
+            "percentage": 500
+        },
+        {
+            "icon": "https://images.hive.blog/DQmXX8bn5nDXKaauMGgDkjdYyztRpSRJQpCABKse2LkKzEc/2.png",
+            "link": "/silentbot/@silentbot/2-star-pu",
+            "percentage": 2000
+        },
+        {
+            "icon": "https://images.hive.blog/DQmcnTPGYiUHnJqseYVkBXcS4ooRBXrDcCQ5CX8zPwE1PF1/3.png",
+            "link": "/silentbot/@silentbot/3-star-pu",
+            "percentage": 3500
+        },
+        {
+            "icon": "https://images.hive.blog/DQmeMLSVzJRKJwNUco2NHJhqjMVta8ENy8F5KRfw6zkPhH9/4.png",
+            "link": "/silentbot/@silentbot/4-star-pu",
+            "percentage": 6000
+        },
+        {
+            "icon": "https://images.hive.blog/DQmanjVg4nTtdCWGnKwQDuwzExz2q7FCtrBbxD9cnpzmbDe/5.png",
+            "link": "/silentbot/@silentbot/5-star-pu",
+            "percentage": 10000
+        }
+    ]
+]
