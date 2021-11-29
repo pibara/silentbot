@@ -8,8 +8,6 @@ import json
 import sys
 import os
 # TODO:
-# * Run in docker
-# * Host on github
 # * Support abuse commands
 #   * abuse spam
 #   * abuse wtf
