@@ -188,21 +188,29 @@ class SilentBot:
         rval = False
         for key in self.vote_queue:
             try:
-                if self.vote_queue[key] and self.hive[key].account(key).vp() >= self.votable(key):
-                    action = self.vote_queue[key].popleft()
-                    percentage = action[0]
-                    author = action[1]
-                    permlink = action[2]
-                    self.vote_queue_weight[key] -= percentage/100
-                    print("VOTE:", key, percentage, author, permlink)
-                    op = Operation('vote', {
-                        "voter": key,
-                        "author": author,
-                        "permlink": permlink,
-                        "weight": percentage,
-                    })
-                    resp = self.hive[key].broadcast(op)
-                    rval = True
+                self.hive[key] = Client(keys=[self.wif_map[key]])
+                if self.vote_queue[key]:
+                    self.hive[key] = Client(keys=[self.wif_map[key]])
+                    vp = self.hive[key].account(key).vp() 
+                    treshold = self.votable(key)
+                    if vp >= treshold:
+                        action = self.vote_queue[key].popleft()
+                        percentage = action[0]
+                        author = action[1]
+                        permlink = action[2]
+                        self.vote_queue_weight[key] -= percentage/100
+                        print("VOTE:", key, percentage, author, permlink)
+                        op = Operation('vote', {
+                            "voter": key,
+                            "author": author,
+                            "permlink": permlink,
+                            "weight": percentage,
+                        })
+                        resp = self.hive[key].broadcast(op)
+                        rval = True
+                    else:
+                        duration = time.strftime('%H:%M', time.gmtime(int((treshold-vp)*4320)))
+                        print("Waiting for more voting power for", key, "in", duration,";", vp, "<", treshold)
             except RPCNodeException as ex:
                 print("RPCNodeException during vote_if_needed", ex)
                 time.sleep(5)
