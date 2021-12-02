@@ -114,7 +114,7 @@ class SilentBot:
                     print("STAR", star_count, power_up, author, permlink, config["percentage"])
                     for key in self.vote_queue:
                         self.vote_queue[key].append([config["percentage"], author, permlink])
-                        self.vote_queue_weight[key] += config["percentage"]/100
+                        self.vote_queue_weight[key] += int(config["percentage"]/100)
                 else:
                     print("NOTICE: Not doing second comment for single post") 
                 done=True
@@ -192,25 +192,31 @@ class SilentBot:
                 if self.vote_queue[key]:
                     self.hive[key] = Client(keys=[self.wif_map[key]])
                     vp = self.hive[key].account(key).vp() 
-                    treshold = self.votable(key)
-                    if vp >= treshold:
+                    needed = self.vote_queue[key][0][0]
+                    adjusted = int(needed * 100 / vp)
+                    if adjusted <= 10000:
                         action = self.vote_queue[key].popleft()
-                        percentage = action[0]
+                        percentage = adjusted
                         author = action[1]
                         permlink = action[2]
-                        self.vote_queue_weight[key] -= percentage/100
-                        print("VOTE:", key, percentage, author, permlink)
+                        self.vote_queue_weight[key] -= int(action[0]/100)
                         op = Operation('vote', {
                             "voter": key,
                             "author": author,
                             "permlink": permlink,
                             "weight": percentage,
                         })
-                        resp = self.hive[key].broadcast(op)
+                        try:
+                            resp = self.hive[key].broadcast(op)
+                            self.vote_queue_weight[key] -= percentage/100
+                            print("VOTE:", key, percentage, author, permlink, self.vote_queue_weight[key], len(self.vote_queue[key]))
+                        except:
+                            print("Vote failed,", key, percentage, author, permlink, self.vote_queue_weight[key])
+                            self.vote_queue[key].appendleft(action)
                         rval = True
                     else:
-                        duration = time.strftime('%H:%M', time.gmtime(int((treshold-vp)*4320)))
-                        print("Waiting for more voting power for", key, "in", duration,";", vp, "<", treshold)
+                        duration = time.strftime('%H:%M', time.gmtime(int((needed/100 - vp)*4320)))
+                        print("Waiting for more voting power for", key, "in", duration,";", needed/100, ">", vp)
             except RPCNodeException as ex:
                 print("RPCNodeException during vote_if_needed", ex)
                 time.sleep(5)
